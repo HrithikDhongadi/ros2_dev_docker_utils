@@ -1,0 +1,33 @@
+{
+  "name": "ROS2HumbleDev",
+  "image": "osrf/ros:humble-desktop",
+  "settings": {
+    "C_Cpp.default.includePath": [
+      "${workspaceFolder}/**",
+      "/opt/ros/humble/include/**",
+      "/usr/include",
+      "/usr/local/include"
+    ]
+  },
+  "extensions": [
+    "ms-vscode.cpptools",
+    "ms-iot.vscode-ros",
+    "ms-vscode.cpptools",
+    "ms-vscode.cpptools-extensionpack"
+  ],
+
+  "runArgs": [
+    "-e", "DISPLAY=${env:DISPLAY}",
+    "-v", "/tmp/.X11-unix:/tmp/.X11-unix:rw"
+  ],
+  "remoteEnv": {
+    "DISPLAY": "${env:DISPLAY}"
+  },
+
+  "postCreateCommand": "apt update && apt install -y build-essential",
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/workspace,type=bind"
+  ],
+  "remoteUser": "root",
+  "workspaceFolder": "/workspace"
+}
