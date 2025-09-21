@@ -35,7 +35,10 @@ This guide explains **how to use** the pre-configured ROS2 Humble development en
 
 ---
 
-## Step 1: Pull the ROS2 Docker Image (Optional)
+## Usage Instructions
+To start using the ROS2 Humble development environment inside a Docker container, follow these steps:
+
+### Step 1: Pull the ROS2 Docker Image (Optional)
 
 You can use the provided script to pull the Docker image from Docker Hub:
 
@@ -48,7 +51,7 @@ cd scripts
 
 ---
 
-## Step 2: Open the Project in VSCode
+### Step 2: Open the Project in VSCode
 
 1. Open VSCode.
 2. Open the devcontainer.json file located in the `.devcontainer` folder.
@@ -65,7 +68,7 @@ VSCode will now:
 
 ---
 
-## Step 3: Use the ROS2 Development Environment Inside the Container
+### Step 3: Use the ROS2 Development Environment Inside the Container
 
 Once inside the container:
 
@@ -83,12 +86,32 @@ colcon build
 
 ---
 
-## Step 4: Developing with ROS2 in VSCode
+### Step 4: Developing with ROS2 in VSCode
 
 * You have C++ and ROS extensions installed in the container by default.
 * Build your ROS2 packages using `colcon` or other ROS2 tools inside the integrated terminal.
 * The container includes necessary tools (`build-essential`, ROS2 packages, etc.).
 * You can run and debug ROS2 nodes inside the container.
+
+---
+## Save the Container State (Optional)
+If you want to save the state of your container (e.g., installed packages, configurations), you can create a new Docker image from the running container:
+
+```bash
+# Get the container ID
+CONTAINER_ID=$(docker ps -q --filter "ancestor=osrf/ros:humble-desktop") or use `docker ps` to find it manually.
+
+# Commit the container to a new image
+docker commit $CONTAINER_ID my_ros2_image:latest
+```
+You can then use `my_ros2_image:latest` as your base image in future sessions.
+you can also push this image to Docker Hub or a private registry for sharing.
+
+Follow these steps to rebase your container:
+1. Make the necessary changes inside the devcontainer.json like changing the image name to your new image.
+2. Reopen the folder in the container using the updated devcontainer.json.
+3. Your changes will persist in the new container.
+4. Repeat the commit process if you make further changes and then rebuild the container.
 
 ---
 
